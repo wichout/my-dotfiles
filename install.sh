@@ -4,20 +4,21 @@
 sudo apt -y update && sudo apt -y upgrade;
 
 # Check and install some needed programs
-for program in stow curl fuse; do
+for program in stow curl fuse fzf bat; do
   if ! command -v $program &> /dev/null; then
     sudo apt -y install $program
   fi
 done
 
 # Symlink the dotfiles
-stow nvim
-stow tmux
-stow zsh
+stow ~/dotfiles/nvim
+stow ~/dotfiles/tmux
+stow ~/dotfiles/zsh
 
-# Install zsh and oh-my-posh
+# Install zsh and oh-my-zsh
 if ! command -v zsh &> /dev/null; then
   sudo apt -y install zsh
+  sudo chsh -s $(which zsh)
   sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -28,9 +29,6 @@ if ! command -v nvim &> /dev/null; then
   curl -L -O https://github.com/neovim/neovim/releases/download/v0.10.1/nvim.appimage
   sudo chmod u+x nvim.appimage
   sudo mv nvim.appimage /usr/bin/nvim
-else
-  sudo rm /usr/bin/nvim
-  sudo rm -rf ~/.config/nvim/
 fi
 
 # Install tmux
@@ -38,6 +36,10 @@ if ! command -v tmux &> /dev/null; then
   sudo apt -y install tmux
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
   tmux source ~/.tmux.conf
+
+  # Plugins
+  mkdir -p ~/.config/tmux/plugins/catppuccin
+  git clone https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
 fi
 
 # Install lazygit
