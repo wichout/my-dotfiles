@@ -42,6 +42,13 @@ if ! command -v tmux &> /dev/null; then
   git clone https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
 fi
 
+# Install Git
+if ! command -v git &> /dev/null; then
+  sudo apt -y install git-all
+  git config --global user.name "wichout"
+  git config --global user.email "luisadolfotaddeigonzalezs@gmail.com"
+fi
+
 # Install lazygit
 if ! command -v lazygit &> /dev/null; then
   LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
