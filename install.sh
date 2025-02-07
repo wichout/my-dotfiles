@@ -4,7 +4,7 @@
 sudo apt -y update && sudo apt -y upgrade;
 
 # Check and install some needed programs
-for program in stow curl fuse fzf bat; do
+for program in stow curl fuse fzf bat keychain; do
   if ! command -v $program &> /dev/null; then
     sudo apt -y install $program
   fi
