@@ -11,7 +11,6 @@ for program in stow curl fuse fzf bat keychain; do
 done
 
 # Symlink the dotfiles
-stow ~/dotfiles/nvim
 stow ~/dotfiles/tmux
 stow ~/dotfiles/zsh
 
@@ -29,6 +28,9 @@ if ! command -v nvim &> /dev/null; then
   curl -L -O https://github.com/neovim/neovim/releases/download/v0.10.1/nvim.appimage
   sudo chmod u+x nvim.appimage
   sudo mv nvim.appimage /usr/bin/nvim
+
+  git clone https://github.com/wichout/neovim-dotfiles.git $HOME/dotfiles/nvim
+  stow $HOME/dotfiles/nvim
 fi
 
 # Install tmux
