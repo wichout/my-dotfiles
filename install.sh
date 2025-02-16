@@ -13,15 +13,15 @@ for program in stow curl fuse fzf bat keychain; do
 done
 
 # Symlink the dotfiles
-stow ./tmux
-stow ./zsh
+stow $HOME/dotfiles/tmux
+stow $HOME/dotfiles/zsh
 
 
 # Install neovim
 if ! command -v nvim &> /dev/null; then
   echo '---> Installing Neovim...'
   
-  curl -L -O https://github.com/neovim/neovim/releases/download/v0.10.1/nvim.appimage
+  curl -L -O https://github.com/neovim/neovim/releases/download/v0.10.4/nvim.appimage
   sudo chmod u+x nvim.appimage
   sudo mv nvim.appimage /usr/bin/nvim
 
@@ -42,6 +42,15 @@ if ! command -v tmux &> /dev/null; then
   # Plugins
   mkdir -p ~/.config/tmux/plugins/catppuccin
   git clone https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
+
+  clear
+fi
+
+# Install uv
+if ! command -v uv &> /dev/null; then
+  echo '---> Installing uv'
+
+  curl -LsSf https://astral.sh/uv/install.sh | sh
 
   clear
 fi
@@ -68,6 +77,15 @@ if ! command -v lazygit &> /dev/null; then
 
   clear
 fi
+
+# Install Fast Node Manager
+if ! command -v fnm &> /dev/null; then
+  echo '---> Installing Fast Node Manager'
+  curl -fsSL https://fnm.vercel.app/install | bash
+  eval "$(fnm env --use-on-cd --shell zsh)"
+  clear
+fi
+
 
 # Install zsh and oh-my-zsh
 if ! command -v zsh &> /dev/null; then
