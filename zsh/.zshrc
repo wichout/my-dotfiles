@@ -47,7 +47,7 @@ else
 fi
 
 # Add github ssh keys to the ssh-agent
-eval $(keychain --quiet --eval --agents ssh id_ed25519)
+# eval $(keychain --quiet --eval --agents ssh id_ed25519)
 
 # Support for uv
 eval "$(uv generate-shell-completion zsh)"
