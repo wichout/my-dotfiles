@@ -1,6 +1,9 @@
 # ALIASES -------------------
-alias ll="ls -l"
-alias lla="ls -la"
+alias ls="exa --icons"
+alias ll="exa -lh --icons"
+alias la="exa -lah --icons"
+alias lt="exa -tree --icons"
+
 alias cls="clear"
 alias mv='mv -i'
 alias cp='cp -i'
@@ -24,3 +27,7 @@ alias dc="docker compose"
 alias dl='sudo docker ps -l -q'
 alias dps="sudo docker ps"
 alias di='sudo docker images'
+
+if command -v bat &>/dev/null; then
+    alias cat="bat"
+fi
