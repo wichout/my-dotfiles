@@ -10,7 +10,7 @@ sudo apt -y update && sudo apt -y upgrade
 mkdir -p ~/.config ~/.local/bin ~/.local/env
 
 # Installing some nedeed programs
-for program in stow curl fzf bat keychain bat exa xclip ripgrep; do
+for program in stow curl fzf bat keychain bat eza xclip ripgrep; do
   if ! command -v $program &>/dev/null; then
     echo "-> Installing $program ..."
     sudo apt -y install $program
