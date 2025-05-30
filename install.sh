@@ -9,6 +9,9 @@ sudo apt -y update && sudo apt -y upgrade
 # Creating nedeed directories
 mkdir -p $HOME/.config $HOME/.local/bin $HOME/.local/env
 
+# Variables
+email="luisadolfotaddeigonzalezs@gmail.com"
+
 # Installing some nedeed programs
 for program in stow curl fzf bat keychain bat eza xclip ripgrep unzip; do
   if ! command -v $program &>/dev/null; then
@@ -18,15 +21,29 @@ for program in stow curl fzf bat keychain bat eza xclip ripgrep unzip; do
   fi
 done
 
-# Symlink the dotfiles
-if [ ! -f $HOME/tmux] && [ !-f $HOME/zsh ]; then
-  stow tmux
-  stow zsh
+# Stow the dotfiles
+stow tmux
+
+# Install zsh
+if ! command -v zsh &>/dev/null; then
+  echo 'Installing Oh My Zsh and Sourcing files...'
+  sudo apt -y install zsh
+  if [ $SHELL != $(which zsh) ]; then
+    chsh -s $(which zsh)
+  fi
+  exec zsh
+  sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  rm $HOME/.zshrc
+  mv $HOME/.zshrc.pre-oh-my-zsh ~/.zshrc
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+  clear
 fi
+
 
 # Symlinking batcat to bat if is needed
 if command -v batcat &>/dev/null; then
-  if [ ! -f $HOME/.local/bin/bat]; then
+  if [ ! -e $HOME/.local/bin/bat]; then
     ln -s /usr/bin/batcat ~/.local/bin/bat
   fi
 fi
@@ -39,7 +56,7 @@ if ! command -v git &>/dev/null; then
 fi
 
 git config --global user.name "wichout"
-git config --global user.email "luisadolfotaddeigonzalezs@gmail.com"
+git config --global user.email $email
 
 # Install neovim
 if ! command -v nvim &>/dev/null; then
@@ -99,24 +116,17 @@ if ! command -v fnm &>/dev/null; then
   clear
 fi
 
-# Install zsh and oh-my-zsh
-if ! command -v zsh &>/dev/null; then
-  echo 'Installing Oh My Zsh and Sourcing files...'
-  sudo apt -y install zsh
-  if [ $SHELL != $(which zsh) ]; then
-    chsh -s $(which zsh)
+# Sourcing zsh files
+for file in shell/*; do
+  fullpath=$(realpath "$file")
+  if ! grep -qxF "source $fullpath" "$HOME/.zshrc"; then
+    echo "source $fullpath" >> "$HOME/.zshrc"
   fi
-  # Sourcing scripts
-  for file in shell/*; do
-    fullpath=$(realpath "$file")
-    if ! grep -qxF "source $fullpath" "$HOME/.zshrc"; then
-      echo "source $fullpath" >> "$HOME/.zshrc"
-    fi
-  done
-  sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-  rm $HOME/.zshrc
-  mv $HOME/.zshrc.pre-oh-my-zsh ~/.zshrc
-  clear
-fi
+done
+
+# Creating ssh keys
+ssh-keygen -t ed25519 -C $email
+
+echo "SSH keys added to your clipboard"
+cat ~/.ssh/id_ed25519.pub
+xclip -sel clip < ~/.ssh/id_ed25519.pub
