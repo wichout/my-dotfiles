@@ -125,8 +125,10 @@ for file in shell/*; do
 done
 
 # Creating ssh keys
+echo "-> Creating SSH Keys ..."
 ssh-keygen -t ed25519 -C $email
+clear
 
-echo "SSH keys added to your clipboard"
+echo "-> SSH keys added to your clipboard ..."
 cat ~/.ssh/id_ed25519.pub
 xclip -sel clip < ~/.ssh/id_ed25519.pub
