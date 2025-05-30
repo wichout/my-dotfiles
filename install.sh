@@ -26,7 +26,7 @@ fi
 
 # Symlinking batcat to bat if is needed
 if command -v batcat &>/dev/null; then
-  if [ ! -f $HOME/.local/bin/bat]: then
+  if [ ! -f $HOME/.local/bin/bat]; then
     ln -s /usr/bin/batcat ~/.local/bin/bat
   fi
 fi
