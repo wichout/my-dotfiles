@@ -10,7 +10,7 @@ sudo apt -y update && sudo apt -y upgrade
 mkdir -p $HOME/.config $HOME/.local/bin $HOME/.local/env
 
 # Installing some nedeed programs
-for program in stow curl fzf bat keychain bat eza xclip ripgrep; do
+for program in stow curl fzf bat keychain bat eza xclip ripgrep unzip; do
   if ! command -v $program &>/dev/null; then
     echo "-> Installing $program ..."
     sudo apt -y install $program
@@ -19,11 +19,16 @@ for program in stow curl fzf bat keychain bat eza xclip ripgrep; do
 done
 
 # Symlink the dotfiles
-stow tmux
-stow zsh
+if [ ! -f $HOME/tmux] && [ !-f $HOME/zsh ]; then
+  stow tmux
+  stow zsh
+fi
 
-if ! command -v bat &>/dev/null; then
-  ln -s /usr/bin/batcat ~/.local/bin/bat
+# Symlinking batcat to bat if is needed
+if command -v batcat &>/dev/null; then
+  if [ ! -f $HOME/.local/bin/bat]: then
+    ln -s /usr/bin/batcat ~/.local/bin/bat
+  fi
 fi
 
 # Installing Git
