@@ -7,7 +7,7 @@ echo "Starting dotfiles configuration"
 sudo apt -y update && sudo apt -y upgrade
 
 # Creating nedeed directories
-mkdir -p ~/.config ~/.local/bin ~/.local/env
+mkdir -p $HOME/.config $HOME/.local/bin $HOME/.local/env
 
 # Installing some nedeed programs
 for program in stow curl fzf bat keychain bat eza xclip ripgrep; do
@@ -39,11 +39,11 @@ git config --global user.email "luisadolfotaddeigonzalezs@gmail.com"
 # Install neovim
 if ! command -v nvim &>/dev/null; then
   echo '-> Installing Neovim ...'
-  curl -O https://github.com/neovim/neovim/releases/download/v0.11.1/nvim-linux-x86_64.tar.gz
+  curl -LO https://github.com/neovim/neovim/releases/download/v0.11.1/nvim-linux-x86_64.tar.gz
   tar xzvf nvim-linux-x86_64.tar.gz
   mv nvim-linux-x86_64/bin/nvim $HOME/.local/bin/
   rm -rf nvim-linux-x86_64.tar.gz nvim-linux-x86_64
-  git clone https://github.com/wichout/neovim-dotfiles.git $HOME/dotfiles/nvim/.config/nvim
+  git clone https://github.com/wichout/neovim-dotfiles.git $HOME/my-dotfiles/nvim/.config/nvim
   stow nvim
   clear
 fi
