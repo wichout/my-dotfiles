@@ -26,8 +26,8 @@ stow tmux
 stow zsh
 
 # Symlinking batcat to bat if is needed
-if [ ! -e $HOME/.local/bin/bat]; then
-  ln -s /usr/bin/batcat ~/.local/bin/bat
+if [ -x "/usr/bin/batcat" ] && [ ! -e "$HOME/.local/bin/bat" ]; then
+  ln -s /usr/bin/batcat "$HOME/.local/bin/bat" 
 fi
 
 # Installing Git
@@ -111,11 +111,8 @@ if ! command -v zsh &>/dev/null; then
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
   clear
-  exec zsh
 fi
 
-# Sourcing zsh files
-echo "-> Sourcing files..."
 for file in $HOME/my-dotfiles/shell/*; do
   fullpath=$(realpath "$file")
   if ! grep -qxF "source $fullpath" "$HOME/.zshrc"; then
