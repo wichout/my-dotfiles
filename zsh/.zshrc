@@ -28,6 +28,14 @@ zstyle ':omz:update' frequency 13
 # "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 HIST_STAMPS="dd.mm.yyyy"
 
+plugins=(
+	git
+	zsh-autosuggestions
+	zsh-syntax-highlighting
+)
+
+source $ZSH/oh-my-zsh.sh
+
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 

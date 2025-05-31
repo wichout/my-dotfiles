@@ -105,19 +105,18 @@ if ! command -v zsh &>/dev/null; then
   if [ $SHELL != $(which zsh) ]; then
     chsh -s $(which zsh)
   fi
-  mv $HOME/.zshrc $HOME/.zshrc.backup
-  sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
-  rm $HOME/.zshrc
-  mv $HOME/.zshrc.backup $HOME/.zshrc
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  sudo rm $HOME/.zshrc
+  sudo mv $HOME/.zshrc.pre-oh-my-zsh $HOME/.zshrc
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
   clear
+  exec zsh
 fi
 
-exec zsh
-
 # Sourcing zsh files
-for file in shell/*; do
+echo "-> Sourcing files..."
+for file in $HOME/my-dotfiles/shell/*; do
   fullpath=$(realpath "$file")
   if ! grep -qxF "source $fullpath" "$HOME/.zshrc"; then
     echo "source $fullpath" >> "$HOME/.zshrc"
@@ -125,10 +124,10 @@ for file in shell/*; do
 done
 
 # Creating ssh keys
-echo "-> Creating SSH Keys ..."
+echo "-> Creating SSH Keys..."
 ssh-keygen -t ed25519 -C $email
 clear
 
-echo "-> SSH keys added to your clipboard ..."
+echo "-> SSH keys added to your clipboard..."
 cat ~/.ssh/id_ed25519.pub
 xclip -sel clip < ~/.ssh/id_ed25519.pub
