@@ -23,18 +23,20 @@ done
 
 # Stow the dotfiles
 stow tmux
+stow zsh
 
 # Install zsh
 if ! command -v zsh &>/dev/null; then
-  echo 'Installing Oh My Zsh and Sourcing files...'
+  echo 'Installing Zsh...'
   sudo apt -y install zsh
   if [ $SHELL != $(which zsh) ]; then
     chsh -s $(which zsh)
   fi
   exec zsh
+  mv $HOME/.zshrc $HOME/.zshrc.backup
   sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   rm $HOME/.zshrc
-  stow zsh
+  mv $HOME/.zshrc.backup $HOME/.zshrc
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
   clear
