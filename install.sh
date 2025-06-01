@@ -5,6 +5,7 @@ set -e
 echo "Starting dotfiles configuration"
 
 sudo apt -y update && sudo apt -y upgrade
+sudo apt install build-essential
 
 # Creating nedeed directories
 mkdir -p $HOME/.config $HOME/.local/bin $HOME/.local/env
@@ -45,7 +46,7 @@ if ! command -v nvim &>/dev/null; then
   echo '-> Installing Neovim ...'
   curl -LO https://github.com/neovim/neovim/releases/download/v0.11.1/nvim-linux-x86_64.tar.gz
   tar xzvf nvim-linux-x86_64.tar.gz
-  mv nvim-linux-x86_64/bin/nvim $HOME/.local/bin/
+  mv nvim-linux-x86_64/* $HOME/.local
   rm -rf nvim-linux-x86_64.tar.gz nvim-linux-x86_64
   git clone https://github.com/wichout/neovim-dotfiles.git $HOME/my-dotfiles/nvim/.config/nvim
   stow nvim
@@ -116,7 +117,7 @@ fi
 for file in $HOME/my-dotfiles/shell/*; do
   fullpath=$(realpath "$file")
   if ! grep -qxF "source $fullpath" "$HOME/.zshrc"; then
-    echo "source $fullpath" >> "$HOME/.zshrc"
+    echo -e "source $fullpath" >> "$HOME/.zshrc"
   fi
 done
 
@@ -124,7 +125,3 @@ done
 echo "-> Creating SSH Keys..."
 ssh-keygen -t ed25519 -C $email
 clear
-
-echo "-> SSH keys added to your clipboard..."
-cat ~/.ssh/id_ed25519.pub
-xclip -sel clip < ~/.ssh/id_ed25519.pub

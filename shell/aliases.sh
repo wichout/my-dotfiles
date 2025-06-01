@@ -21,6 +21,8 @@ alias gl='git log'
 alias ga="git add"
 alias gal='git add .'
 alias gpo='git push -u origin'
+alias gp='git pull'
+alias gc='git commit -m'
 
 alias d="docker"
 alias dc="docker compose"
