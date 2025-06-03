@@ -30,7 +30,7 @@ cd $HOME
 
 # Symlinking batcat to bat if is needed
 if [ -x "/usr/bin/batcat" ] && [ ! -e "$HOME/.local/bin/bat" ]; then
-  ln -s /usr/bin/batcat "$HOME/.local/bin/bat" 
+  ln -s /usr/bin/batcat "$HOME/.local/bin/bat"
 fi
 
 # Installing Git
@@ -61,8 +61,6 @@ if ! command -v tmux &>/dev/null; then
   sudo apt -y install tmux
   git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
   tmux source $HOME/.tmux.conf
-  mkdir -p $HOME/.config/tmux/plugins/catppuccin
-  git clone https://github.com/catppuccin/tmux.git $HOME/.config/tmux/plugins/catppuccin/tmux
   clear
 fi
 
@@ -131,7 +129,7 @@ echo "-> Adding sourcing files to .zshrc..."
 for file in $HOME/my-dotfiles/shell/*; do
   fullpath=$(realpath "$file")
   if ! grep -qxF "source $fullpath" "$HOME/.zshrc"; then
-    echo -e "source $fullpath" >> "$HOME/.zshrc"
+    echo -e "\nsource $fullpath" >>"$HOME/.zshrc"
   fi
 done
 
@@ -141,3 +139,4 @@ ssh-keygen -t ed25519 -C $email
 clear
 
 exec zsh
+

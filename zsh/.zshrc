@@ -37,7 +37,9 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
-export LANG=en_US.UTF-8
+export LANG=es_mx.UTF-8
+export LANGUAGE=es_mx.UTF-8
+export LC_ALL=es_mx.UTF-8
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
@@ -47,7 +49,7 @@ else
 fi
 
 # Add github ssh keys to the ssh-agent
-# eval $(keychain --quiet --eval --agents ssh id_ed25519)
+eval $(keychain --quiet --eval --agents ssh id_ed25519)
 
 # Support for uv
 eval "$(uv generate-shell-completion zsh)"
@@ -70,3 +72,4 @@ if [ -d "$FNM_PATH" ]; then
 fi
 
 eval "$(fnm env --use-on-cd --shell zsh)"
+source /home/wichout/my-dotfiles/shell/aliases.sh

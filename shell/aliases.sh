@@ -8,7 +8,7 @@ alias cls="clear"
 alias mv='mv -i'
 alias cp='cp -i'
 alias ln='ln -i'
-alias rm='rm -l --preserve-root'
+alias rm='rm --preserve-root'
 alias ports='sudo netstat -tulanp'
 
 alias nv="nvim"
@@ -23,6 +23,7 @@ alias gal='git add .'
 alias gpo='git push -u origin'
 alias gp='git pull'
 alias gc='git commit -m'
+alias lg='lazygit'
 
 alias d="docker"
 alias dc="docker compose"
