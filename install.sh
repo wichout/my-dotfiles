@@ -5,7 +5,7 @@ set -e
 echo "Starting dotfiles configuration"
 
 sudo apt -y update && sudo apt -y upgrade
-sudo apt install build-essential
+sudo apt -y install build-essential
 
 # Creating nedeed directories
 mkdir -p $HOME/.config $HOME/.local/bin $HOME/.local/env
@@ -114,6 +114,7 @@ if ! command -v zsh &>/dev/null; then
   clear
 fi
 
+echo "-> Adding sourcing files to .zshrc..."
 for file in $HOME/my-dotfiles/shell/*; do
   fullpath=$(realpath "$file")
   if ! grep -qxF "source $fullpath" "$HOME/.zshrc"; then
@@ -125,3 +126,5 @@ done
 echo "-> Creating SSH Keys..."
 ssh-keygen -t ed25519 -C $email
 clear
+
+exec zsh
