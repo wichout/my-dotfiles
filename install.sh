@@ -26,6 +26,8 @@ done
 stow tmux
 stow zsh
 
+cd $HOME
+
 # Symlinking batcat to bat if is needed
 if [ -x "/usr/bin/batcat" ] && [ ! -e "$HOME/.local/bin/bat" ]; then
   ln -s /usr/bin/batcat "$HOME/.local/bin/bat" 
@@ -96,6 +98,17 @@ if ! command -v fnm &>/dev/null; then
   curl -fsSL https://fnm.vercel.app/install | bash
   export PATH="$HOME/.fnm:$PATH"
   eval "$(fnm env --use-on-cd --shell zsh)"
+  clear
+fi
+
+# Install Btop
+if ! command -v fnm &>/dev/null; then
+  echo '--> Installing Btop ...'
+  sudo apt install coreutils gcc-11 g++-11 lowdown
+  git clone https://github.com/aristocratos/btop.git
+  cd btop
+  make
+  cd $HOME
   clear
 fi
 
