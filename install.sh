@@ -48,7 +48,7 @@ if ! command -v nvim &>/dev/null; then
   echo '-> Installing Neovim ...'
   curl -LO https://github.com/neovim/neovim/releases/download/v0.11.1/nvim-linux-x86_64.tar.gz
   tar xzvf nvim-linux-x86_64.tar.gz
-  mv nvim-linux-x86_64/* $HOME/.local
+  cp -R nvim-linux-x86_64/* $HOME/.local/
   rm -rf nvim-linux-x86_64.tar.gz nvim-linux-x86_64
   git clone https://github.com/wichout/neovim-dotfiles.git $HOME/my-dotfiles/nvim/.config/nvim
   stow nvim
