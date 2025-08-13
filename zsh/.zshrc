@@ -37,9 +37,9 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
-export LANG=es_mx.UTF-8
-export LANGUAGE=es_mx.UTF-8
-export LC_ALL=es_mx.UTF-8
+export LANG='es_MX.UTF-8'
+export LANGUAGE='es_MX.UTF-8'
+export LC_ALL='es_MX.UTF-8'
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then

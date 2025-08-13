@@ -1,8 +1,8 @@
 # ALIASES -------------------
 alias ls="eza --icons"
 alias ll="eza -lh --icons"
-alias la="eza -lah --icons"
-alias llt="eza -tree --icons"
+alias lla="eza -lah --icons"
+alias llt="eza --tree --icons"
 
 alias cls="clear"
 alias mv='mv -i'
