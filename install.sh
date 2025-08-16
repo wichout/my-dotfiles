@@ -14,7 +14,7 @@ mkdir -p $HOME/.config $HOME/.local/bin $HOME/.local/env
 email="luisadolfotaddeigonzalezs@gmail.com"
 
 # Installing some nedeed programs
-for program in stow curl fzf bat keychain bat eza xclip ripgrep unzip; do
+for program in stow curl fzf bat keychain bat eza xclip ripgrep unzip python3-venv; do
   if ! command -v $program &>/dev/null; then
     echo "-> Installing $program ..."
     sudo apt -y install $program
@@ -97,6 +97,7 @@ if ! command -v fnm &>/dev/null; then
   curl -fsSL https://fnm.vercel.app/install | bash
   export PATH="$HOME/.fnm:$PATH"
   eval "$(fnm env --use-on-cd --shell zsh)"
+  fnm install --lts
   clear
 fi
 
