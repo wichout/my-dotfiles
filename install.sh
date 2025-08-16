@@ -51,7 +51,8 @@ if ! command -v nvim &>/dev/null; then
   cp -R nvim-linux-x86_64/* $HOME/.local/
   rm -rf nvim-linux-x86_64.tar.gz nvim-linux-x86_64
   git clone https://github.com/wichout/neovim-dotfiles.git $HOME/my-dotfiles/nvim/.config/nvim
-  stow $HOME/my-dotfiles/nvim
+  cd my-dotfiles/nvim && stow nvim
+  cd $HOME
   clear
 fi
 
